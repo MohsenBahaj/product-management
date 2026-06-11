@@ -4,6 +4,9 @@ const { v4: uuidv4 } = require('uuid');
 const config = require('../../config');
 
 let _bucket = null;
+// Strip gs:// prefix if present — needed for public URL construction,
+// while initializeApp accepts either form.
+const BUCKET_NAME = (config.firebase.storageBucket || '').replace(/^gs:\/\//, '').trim();
 
 const getBucket = () => {
   if (_bucket) return _bucket;
@@ -11,12 +14,12 @@ const getBucket = () => {
   if (admin.apps.length === 0) {
     admin.initializeApp({
       credential: admin.credential.cert({
-        projectId: config.firebase.projectId,
-        clientEmail: config.firebase.clientEmail,
-        // dotenv stores newlines as literal \n — restore them
-        privateKey: config.firebase.privateKey.replace(/\\n/g, '\n'),
+        projectId: (config.firebase.projectId || '').trim(),
+        clientEmail: (config.firebase.clientEmail || '').trim(),
+        // dotenv stores literal \n — restore actual newlines
+        privateKey: (config.firebase.privateKey || '').replace(/\\n/g, '\n').trim(),
       }),
-      storageBucket: config.firebase.storageBucket,
+      storageBucket: BUCKET_NAME,
     });
   }
 
@@ -41,7 +44,7 @@ const uploadFile = async (file, folder) => {
 
   await fileRef.makePublic();
 
-  return `https://storage.googleapis.com/${config.firebase.storageBucket}/${storagePath}`;
+  return `https://storage.googleapis.com/${BUCKET_NAME}/${storagePath}`;
 };
 
 /**
@@ -51,7 +54,7 @@ const uploadFile = async (file, folder) => {
 const deleteFile = async (fileUrl) => {
   if (!fileUrl) return;
 
-  const bucketPrefix = `https://storage.googleapis.com/${config.firebase.storageBucket}/`;
+  const bucketPrefix = `https://storage.googleapis.com/${BUCKET_NAME}/`;
   if (!fileUrl.startsWith(bucketPrefix)) return;
 
   const storagePath = fileUrl.slice(bucketPrefix.length);
