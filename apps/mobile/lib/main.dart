@@ -17,14 +17,15 @@ void main() async {
       supportedLocales: const [Locale('en'), Locale('ar')],
       path: 'assets/translations',
       fallbackLocale: const Locale('en'),
+      startLocale: const Locale('ar'),
       saveLocale: true,
-      child: const StockFlowApp(),
+      child: const ProductManagementApp(),
     ),
   );
 }
 
-class StockFlowApp extends StatelessWidget {
-  const StockFlowApp({super.key});
+class ProductManagementApp extends StatelessWidget {
+  const ProductManagementApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +50,7 @@ class _AppRoot extends StatelessWidget {
         }
       },
       child: MaterialApp.router(
-        title: 'StockFlow',
+        title: 'Products Management',
         theme: AppTheme.light,
         darkTheme: AppTheme.dark,
         themeMode: ThemeMode.system,

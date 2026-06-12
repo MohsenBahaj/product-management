@@ -47,7 +47,10 @@ Future<void> configureDependencies() async {
     () => DioClient(
       baseUrl: const String.fromEnvironment(
         'API_BASE_URL',
-        defaultValue: 'http://192.168.0.2:3001/api',
+        defaultValue:
+            'https://product-management-production-0052.up.railway.app/api',
+
+        // defaultValue: 'http://192.168.0.2:3001/api',
       ),
       authInterceptor: sl(),
       errorInterceptor: sl(),

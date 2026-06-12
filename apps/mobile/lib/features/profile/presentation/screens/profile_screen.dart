@@ -65,9 +65,9 @@ class _ProfileView extends StatelessWidget {
                 onTap: () {
                   showAboutDialog(
                     context: context,
-                    applicationName: 'StockFlow',
+                    applicationName: 'Products Management',
                     applicationVersion: '1.0.0',
-                    applicationLegalese: '© 2024 StockFlow',
+                    applicationLegalese: '© 2024 Products Management',
                   );
                 },
               ),

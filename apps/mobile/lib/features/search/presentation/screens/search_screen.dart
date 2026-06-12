@@ -60,51 +60,60 @@ class _SearchViewState extends State<_SearchView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text(LocaleKeys.search.tr()),
+        centerTitle: true,
         automaticallyImplyLeading: false,
-        title: TextField(
-          controller: _searchCtrl,
-          focusNode: _focusNode,
-          onChanged: _onSearchChanged,
-          autofocus: false,
-          decoration: InputDecoration(
-            hintText: LocaleKeys.search_hint.tr(),
-            prefixIcon: const Icon(Icons.search),
-            suffixIcon: _searchCtrl.text.isNotEmpty
-                ? IconButton(
-                    icon: const Icon(Icons.clear),
-                    onPressed: () {
-                      _searchCtrl.clear();
-                      context.read<SearchCubit>().clearSearch();
-                    },
-                  )
-                : null,
-            isDense: true,
-            contentPadding: const EdgeInsets.symmetric(vertical: 10),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(24)),
-          ),
-        ),
       ),
-      body: BlocBuilder<SearchCubit, SearchState>(
-        builder: (context, state) {
-          return switch (state) {
-            SearchInitial(:final recentSearches) => _SearchHistoryView(
-                history: recentSearches, onTap: _applyHistory),
-            SearchLoading() => const AppLoading(),
-            SearchError(:final message) => EmptyStateWidget(
-                title: LocaleKeys.search_failed.tr(),
-                message: message,
-                icon: Icons.search_off_outlined,
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 12, 16, 4),
+            child: TextField(
+              controller: _searchCtrl,
+              focusNode: _focusNode,
+              onChanged: _onSearchChanged,
+              autofocus: false,
+              decoration: InputDecoration(
+                hintText: LocaleKeys.search_hint.tr(),
+                prefixIcon: const Icon(Icons.search),
+                suffixIcon: _searchCtrl.text.isNotEmpty
+                    ? IconButton(
+                        icon: const Icon(Icons.clear),
+                        onPressed: () {
+                          _searchCtrl.clear();
+                          context.read<SearchCubit>().clearSearch();
+                        },
+                      )
+                    : null,
+                isDense: true,
+                contentPadding: const EdgeInsets.symmetric(vertical: 12),
               ),
-            SearchLoaded(:final results, :final query) => results.isEmpty
-                ? EmptyStateWidget(
-                    title: LocaleKeys.no_results_found.tr(),
-                    message: LocaleKeys.try_different_keyword.tr(),
-                    icon: Icons.search_off_outlined,
-                  )
-                : _SearchResultsView(results: results, query: query),
-          };
-        },
+            ),
+          ),
+          Expanded(
+            child: BlocBuilder<SearchCubit, SearchState>(
+              builder: (context, state) {
+                return switch (state) {
+                  SearchInitial(:final recentSearches) => _SearchHistoryView(
+                      history: recentSearches, onTap: _applyHistory),
+                  SearchLoading() => const AppLoading(),
+                  SearchError(:final message) => EmptyStateWidget(
+                      title: LocaleKeys.search_failed.tr(),
+                      message: message,
+                      icon: Icons.search_off_outlined,
+                    ),
+                  SearchLoaded(:final results, :final query) => results.isEmpty
+                      ? EmptyStateWidget(
+                          title: LocaleKeys.no_results_found.tr(),
+                          message: LocaleKeys.try_different_keyword.tr(),
+                          icon: Icons.search_off_outlined,
+                        )
+                      : _SearchResultsView(results: results, query: query),
+                };
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -129,7 +138,7 @@ class _SearchHistoryView extends StatelessWidget {
     return ListView(
       children: [
         Padding(
-          padding: const EdgeInsets.fromLTRB(16, 16, 8, 8),
+          padding: const EdgeInsets.fromLTRB(16, 8, 8, 8),
           child: Row(
             children: [
               Expanded(

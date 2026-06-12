@@ -33,17 +33,17 @@ class DashboardStatCard extends StatelessWidget {
         ],
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            width: 36,
-            height: 36,
+            width: 35,
+            height: 35,
             decoration: BoxDecoration(
-              color: color.withValues(alpha: 0.12),
+              // color: color.withValues(alpha: 0.12),
               borderRadius: BorderRadius.circular(9),
             ),
-            child: Icon(icon, color: color, size: 18),
+            child: Icon(icon, color: color, size: 35),
           ),
           const SizedBox(height: 10),
           FittedBox(
@@ -60,7 +60,9 @@ class DashboardStatCard extends StatelessWidget {
           const SizedBox(height: 2),
           Text(
             label,
-            style: AppTextStyles.bodySm.copyWith(color: scheme.onSurfaceVariant),
+            style: AppTextStyles.bodySm.copyWith(
+              color: scheme.onSurfaceVariant,
+            ),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),

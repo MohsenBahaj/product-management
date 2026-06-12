@@ -27,7 +27,11 @@ class ProductsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => sl<ProductListCubit>()
-        ..loadProducts(ProductQueryParams(categoryId: initialCategoryId)),
+        ..loadProducts(ProductQueryParams(
+          categoryId: initialCategoryId,
+          sortBy: 'price',
+          order: 'desc',
+        )),
       child: _ProductsView(initialCategoryId: initialCategoryId),
     );
   }
@@ -45,14 +49,19 @@ class _ProductsViewState extends State<_ProductsView> {
   final _searchCtrl = TextEditingController();
   bool _isGrid = true;
   bool _featuredOnly = false;
-  String _sortBy = 'created_at';
-  CategoryModel? _filterCategory;
+  bool _priceAscending = false; // false = high to low
+  String? _selectedCategoryId;
+  List<CategoryModel> _categories = [];
+  CategoryModel? _filterCategory; // for the banner when navigating from dashboard
 
   @override
   void initState() {
     super.initState();
+    _selectedCategoryId = widget.initialCategoryId;
     if (widget.initialCategoryId != null) {
       _loadFilterCategory(widget.initialCategoryId!);
+    } else {
+      _loadCategories();
     }
   }
 
@@ -60,6 +69,13 @@ class _ProductsViewState extends State<_ProductsView> {
     try {
       final cat = await sl<CategoryRepository>().getCategoryById(id);
       if (mounted) setState(() => _filterCategory = cat);
+    } catch (_) {}
+  }
+
+  Future<void> _loadCategories() async {
+    try {
+      final cats = await sl<CategoryRepository>().getCategories();
+      if (mounted) setState(() => _categories = cats);
     } catch (_) {}
   }
 
@@ -73,9 +89,10 @@ class _ProductsViewState extends State<_ProductsView> {
     context.read<ProductListCubit>().loadProducts(
           ProductQueryParams(
             search: query,
-            categoryId: widget.initialCategoryId,
+            categoryId: _selectedCategoryId,
             featured: _featuredOnly ? true : null,
-            sortBy: _sortBy,
+            sortBy: 'price',
+            order: _priceAscending ? 'asc' : 'desc',
           ),
         );
   }
@@ -84,17 +101,23 @@ class _ProductsViewState extends State<_ProductsView> {
     context.read<ProductListCubit>().loadProducts(
           ProductQueryParams(
             search: _searchCtrl.text,
-            categoryId: widget.initialCategoryId,
+            categoryId: _selectedCategoryId,
             featured: _featuredOnly ? true : null,
-            sortBy: _sortBy,
+            sortBy: 'price',
+            order: _priceAscending ? 'asc' : 'desc',
           ),
         );
   }
 
-  String _sortLabel() {
-    if (_sortBy == 'price') return LocaleKeys.sort_price.tr();
-    if (_sortBy == 'name') return LocaleKeys.sort_name.tr();
-    return LocaleKeys.newest_first.tr();
+  String _priceSortLabel() => _priceAscending
+      ? LocaleKeys.price_low_to_high.tr()
+      : LocaleKeys.price_high_to_low.tr();
+
+  String _categoryLabel() {
+    if (_selectedCategoryId == null) return LocaleKeys.all_categories.tr();
+    final match =
+        _categories.where((c) => c.id == _selectedCategoryId).firstOrNull;
+    return match?.name ?? LocaleKeys.all_categories.tr();
   }
 
   @override
@@ -153,43 +176,74 @@ class _ProductsViewState extends State<_ProductsView> {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            child: Row(
-              children: [
-                FilterChip(
-                  label: Text(LocaleKeys.featured_filter.tr()),
-                  selected: _featuredOnly,
-                  onSelected: (v) {
-                    setState(() => _featuredOnly = v);
-                    _applyFilters();
-                  },
-                ),
-                const SizedBox(width: 8),
-                PopupMenuButton<String>(
-                  initialValue: _sortBy,
-                  onSelected: (v) {
-                    setState(() => _sortBy = v);
-                    _applyFilters();
-                  },
-                  child: Chip(
-                    avatar: const Icon(Icons.sort, size: 16),
-                    label: Text(
-                      _sortLabel(),
-                      style: AppTextStyles.bodySm,
-                    ),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  FilterChip(
+                    label: Text(LocaleKeys.featured_filter.tr()),
+                    selected: _featuredOnly,
+                    onSelected: (v) {
+                      setState(() => _featuredOnly = v);
+                      _applyFilters();
+                    },
                   ),
-                  itemBuilder: (_) => [
-                    PopupMenuItem(
-                        value: 'created_at',
-                        child: Text(LocaleKeys.newest_first_menu.tr())),
-                    PopupMenuItem(
-                        value: 'price',
-                        child: Text(LocaleKeys.sort_price_menu.tr())),
-                    PopupMenuItem(
-                        value: 'name',
-                        child: Text(LocaleKeys.sort_name_menu.tr())),
+                  const SizedBox(width: 8),
+                  PopupMenuButton<bool>(
+                    initialValue: _priceAscending,
+                    onSelected: (v) {
+                      setState(() => _priceAscending = v);
+                      _applyFilters();
+                    },
+                    child: Chip(
+                      avatar: const Icon(Icons.sort, size: 16),
+                      label: Text(
+                        _priceSortLabel(),
+                        style: AppTextStyles.bodySm,
+                      ),
+                    ),
+                    itemBuilder: (_) => [
+                      PopupMenuItem(
+                        value: false,
+                        child: Text(LocaleKeys.price_high_to_low.tr()),
+                      ),
+                      PopupMenuItem(
+                        value: true,
+                        child: Text(LocaleKeys.price_low_to_high.tr()),
+                      ),
+                    ],
+                  ),
+                  if (widget.initialCategoryId == null) ...[
+                    const SizedBox(width: 8),
+                    PopupMenuButton<String?>(
+                      initialValue: _selectedCategoryId,
+                      onSelected: (v) {
+                        setState(() => _selectedCategoryId = v);
+                        _applyFilters();
+                      },
+                      child: Chip(
+                        avatar: const Icon(Icons.category_outlined, size: 16),
+                        label: Text(
+                          _categoryLabel(),
+                          style: AppTextStyles.bodySm,
+                        ),
+                      ),
+                      itemBuilder: (_) => [
+                        PopupMenuItem<String?>(
+                          value: null,
+                          child: Text(LocaleKeys.all_categories.tr()),
+                        ),
+                        ..._categories.map(
+                          (cat) => PopupMenuItem<String?>(
+                            value: cat.id,
+                            child: Text(cat.name),
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           Expanded(

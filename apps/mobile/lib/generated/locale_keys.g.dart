@@ -118,5 +118,8 @@ abstract class  LocaleKeys {
   static const delete_product_confirm = 'delete_product_confirm';
   static const loading = 'loading';
   static const clear_all = 'clear_all';
+  static const price_high_to_low = 'price_high_to_low';
+  static const price_low_to_high = 'price_low_to_high';
+  static const all_categories = 'all_categories';
 
 }

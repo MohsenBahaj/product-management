@@ -44,9 +44,9 @@ class _DashboardView extends StatelessWidget {
           return switch (state) {
             DashboardInitial() || DashboardLoading() => const AppLoading(),
             DashboardError(:final message) => AppErrorWidget(
-                message: message,
-                onRetry: () => context.read<DashboardCubit>().load(),
-              ),
+              message: message,
+              onRetry: () => context.read<DashboardCubit>().load(),
+            ),
             DashboardLoaded() => _DashboardContent(state: state),
           };
         },
@@ -81,7 +81,7 @@ class _DashboardContent extends StatelessWidget {
           SliverAppBar(
             expandedHeight: 120,
             pinned: true,
-            backgroundColor: AppColors.primary,
+            backgroundColor: Colors.transparent,
             flexibleSpace: FlexibleSpaceBar(
               titlePadding: const EdgeInsets.fromLTRB(20, 0, 20, 16),
               title: Column(
@@ -90,24 +90,25 @@ class _DashboardContent extends StatelessWidget {
                 children: [
                   Text(
                     '${_greeting()},',
-                    style: AppTextStyles.bodySm.copyWith(color: Colors.white70),
+                    style: AppTextStyles.bodySm.copyWith(color: Colors.black87),
                   ),
                   Text(
                     firstName,
-                    style: AppTextStyles.headlineLgMobile
-                        .copyWith(color: Colors.white),
+                    style: AppTextStyles.headlineLgMobile.copyWith(
+                      color: AppColors.primary,
+                    ),
                   ),
                 ],
               ),
             ),
-            actions: [
-              IconButton(
-                icon: const Icon(Icons.notifications_outlined,
-                    color: Colors.white),
-                onPressed: () {},
-              ),
-              const SizedBox(width: 4),
-            ],
+            // actions: [
+            //   IconButton(
+            //     icon: const Icon(Icons.notifications_outlined,
+            //         color: Colors.white),
+            //     onPressed: () {},
+            //   ),
+            //   const SizedBox(width: 4),
+            // ],
           ),
           SliverToBoxAdapter(
             child: Padding(
@@ -241,8 +242,9 @@ class _CategoriesSection extends StatelessWidget {
                           textAlign: TextAlign.center,
                         ),
                         Text(
-                          LocaleKeys.x_items
-                              .tr(namedArgs: {'count': count.toString()}),
+                          LocaleKeys.x_items.tr(
+                            namedArgs: {'count': count.toString()},
+                          ),
                           style: AppTextStyles.bodySm.copyWith(
                             fontSize: 10,
                             color: scheme.onSurfaceVariant,
@@ -272,8 +274,7 @@ class _FeaturedSection extends StatelessWidget {
         SectionHeader(
           title: LocaleKeys.featured_products.tr(),
           actionLabel: LocaleKeys.view_all.tr(),
-          onAction: () =>
-              context.push('${RouteNames.products}?featured=true'),
+          onAction: () => context.push('${RouteNames.products}?featured=true'),
         ),
         const SizedBox(height: 12),
         if (products.isEmpty)
@@ -304,7 +305,10 @@ class _FeaturedSection extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         AppNetworkImage(
-                            url: p.thumbnailImageUrl, height: 100),
+                          url: p.thumbnailImageUrl,
+                          width: double.infinity,
+                          height: 100,
+                        ),
                         Padding(
                           padding: const EdgeInsets.all(8),
                           child: Column(
@@ -409,8 +413,8 @@ class _RecentSection extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        Text(
-                          '\$${p.price.toStringAsFixed(2)}',
+                        RiyalPrice(
+                          price: p.price,
                           style: AppTextStyles.bodySm.copyWith(
                             fontWeight: FontWeight.w700,
                             color: scheme.primary,

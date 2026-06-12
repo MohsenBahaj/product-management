@@ -1,5 +1,5 @@
 {
-  "app": { "name": "StockFlow", "tagline": "Premium Product Management Suite" },
+  "app": { "name": "Products Management", "tagline": "Manage your products with ease" },
   "nav": {
     "dashboard": "Dashboard",
     "products": "Products",
@@ -58,6 +58,7 @@
     "thumbnailImage": "Thumbnail Image",
     "galleryImages": "Gallery Images",
     "featured": "Featured Product",
+    "featuredBadge": "Featured",
     "featuredDesc": "Featured products appear highlighted in the dashboard",
     "search": "Search products…",
     "allCategories": "All Categories",
@@ -152,7 +153,10 @@
     "of": "of",
     "items": "items",
     "previous": "Previous",
-    "next": "Next"
+    "next": "Next",
+    "sortBy": "Sort By",
+    "createdAt": "Created At",
+    "updatedAt": "Updated At"
   },
   "validation": {
     "required": "This field is required",

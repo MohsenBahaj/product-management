@@ -16,7 +16,7 @@ const MAX_GALLERY = 10;
 
 const getAll = async (userId, queryParams) => {
   const { page, limit, offset } = getPagination(queryParams);
-  const { search, categoryId, minPrice, maxPrice, order = 'desc', featured } = queryParams;
+  const { search, categoryId, minPrice, maxPrice, minQuantity, maxQuantity, order = 'desc', featured } = queryParams;
   let { sortBy = 'created_at' } = queryParams;
 
   if (!VALID_SORT.has(sortBy)) sortBy = 'created_at';
@@ -37,6 +37,8 @@ const getAll = async (userId, queryParams) => {
   if (categoryId) { conditions.push(`p.category_id = $${idx}`); values.push(categoryId); idx++; }
   if (minPrice !== undefined) { conditions.push(`p.price >= $${idx}`); values.push(parseFloat(minPrice)); idx++; }
   if (maxPrice !== undefined) { conditions.push(`p.price <= $${idx}`); values.push(parseFloat(maxPrice)); idx++; }
+  if (minQuantity !== undefined) { conditions.push(`p.quantity >= $${idx}`); values.push(parseInt(minQuantity)); idx++; }
+  if (maxQuantity !== undefined) { conditions.push(`p.quantity <= $${idx}`); values.push(parseInt(maxQuantity)); idx++; }
 
   const where = conditions.join(' AND ');
 
