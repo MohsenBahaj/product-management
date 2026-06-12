@@ -1,6 +1,6 @@
 <div align="center">
 
-# StockFlow — Product Management System
+# Products Management System
 
 **A production-deployed, full-stack product management platform: Flutter mobile app · React web dashboard · Node.js REST API · PostgreSQL · Firebase Storage**
 
@@ -16,7 +16,7 @@
 
 ---
 
-**[Live Web App](https://products-management-k8773vz6i-mohsenbahajs-projects.vercel.app)** &nbsp;·&nbsp;
+**[Live Web App](https://products-management-tan.vercel.app)** &nbsp;·&nbsp;
 **[API Docs — Swagger](https://product-management-production-0052.up.railway.app/api-docs/#)** &nbsp;·&nbsp;
 **[UI/UX Design — Figma](https://www.figma.com/design/jFjHVsFIkInzs5bVlQQoaj/product-management-mobile-app?node-id=0-1&p=f)**
 
@@ -48,7 +48,7 @@
 
 ## About the Project
 
-StockFlow is a complete product management system built end-to-end by a single engineer — from requirements analysis and UX design in Figma, through a secure REST API with Swagger documentation, all the way to a cross-platform Flutter mobile app and a React web dashboard. The entire system is deployed and running in production.
+Products Management is a complete product management system built end-to-end by a single engineer — from requirements analysis and UX design in Figma, through a secure REST API with Swagger documentation, all the way to a cross-platform Flutter mobile app and a React web dashboard. The entire system is deployed and running in production.
 
 The project was driven by a deliberate engineering mindset: first understand the problem, design the data model, then build each layer incrementally with quality — not just feature velocity.
 
@@ -539,7 +539,7 @@ flutter run
 
 | Layer | Platform | URL |
 |---|---|---|
-| Web App | Vercel | https://products-management-k8773vz6i-mohsenbahajs-projects.vercel.app |
+| Web App | Vercel | https://products-management-tan.vercel.app |
 | REST API | Railway | https://product-management-production-0052.up.railway.app |
 | API Docs | Railway (Swagger) | https://product-management-production-0052.up.railway.app/api-docs/# |
 | Database | Railway PostgreSQL | Provisioned automatically |

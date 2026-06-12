@@ -1,6 +1,6 @@
 <div align="center" dir="rtl">
 
-# StockFlow — نظام إدارة المنتجات
+# نظام إدارة المنتجات
 
 **منصة إدارة منتجات متكاملة ومنشورة في بيئة إنتاج حقيقية: تطبيق جوال Flutter · لوحة تحكم React · واجهة برمجية Node.js · PostgreSQL · Firebase Storage**
 
@@ -16,7 +16,7 @@
 
 ---
 
-**[تطبيق الويب المباشر](https://products-management-k8773vz6i-mohsenbahajs-projects.vercel.app)** &nbsp;·&nbsp;
+**[تطبيق الويب المباشر](https://products-management-tan.vercel.app)** &nbsp;·&nbsp;
 **[توثيق الـ API — Swagger](https://product-management-production-0052.up.railway.app/api-docs/#)** &nbsp;·&nbsp;
 **[تصميم الواجهات — Figma](https://www.figma.com/design/jFjHVsFIkInzs5bVlQQoaj/product-management-mobile-app?node-id=0-1&p=f)**
 
@@ -50,7 +50,7 @@
 
 ## نبذة عن المشروع
 
-StockFlow نظام إدارة منتجات متكامل صُمِّم وبُني من الصفر على يد مهندس واحد — بداية من تحليل المتطلبات وتصميم تجربة المستخدم في Figma، مروراً بواجهة برمجية آمنة موثقة بالكامل، وصولاً إلى تطبيق جوال Flutter ولوحة تحكم ويب مبنية بـ React. النظام كاملاً مُنشور في بيئة إنتاج حقيقية ويعمل الآن.
+نظام إدارة المنتجات منصة متكاملة صُمِّمت وبُنيت من الصفر على يد مهندس واحد — بداية من تحليل المتطلبات وتصميم تجربة المستخدم في Figma، مروراً بواجهة برمجية آمنة موثقة بالكامل، وصولاً إلى تطبيق جوال Flutter ولوحة تحكم ويب مبنية بـ React. النظام كاملاً مُنشور في بيئة إنتاج حقيقية ويعمل الآن.
 
 المشروع لم يُبنَ فقط لاستيفاء قائمة متطلبات، بل انطلق من عقلية هندسية واضحة: فهم المشكلة أولاً، ثم تصميم نموذج البيانات، ثم بناء كل طبقة تدريجياً بجودة عالية — لا مجرد سرعة في تسليم الميزات.
 
@@ -541,7 +541,7 @@ flutter run
 
 | الطبقة | المنصة | الرابط |
 |---|---|---|
-| تطبيق الويب | Vercel | https://products-management-k8773vz6i-mohsenbahajs-projects.vercel.app |
+| تطبيق الويب | Vercel | https://products-management-tan.vercel.app |
 | REST API | Railway | https://product-management-production-0052.up.railway.app |
 | توثيق الـ API | Railway (Swagger) | https://product-management-production-0052.up.railway.app/api-docs/# |
 | قاعدة البيانات | Railway PostgreSQL | يُنشأ تلقائياً |
