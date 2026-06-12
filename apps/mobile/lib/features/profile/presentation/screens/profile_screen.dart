@@ -25,8 +25,7 @@ class _ProfileView extends StatelessWidget {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     return Scaffold(
-      appBar: AppBar(
-          title: Text(LocaleKeys.profile.tr()), centerTitle: true),
+      appBar: AppBar(title: Text(LocaleKeys.profile.tr()), centerTitle: true),
       body: BlocBuilder<AuthCubit, AuthState>(
         builder: (context, state) {
           if (state is! AuthAuthenticated) {
@@ -58,19 +57,19 @@ class _ProfileView extends StatelessWidget {
                 onTap: () => _showLanguagePicker(context),
               ),
               const Divider(height: 1),
-              const SizedBox(height: 8),
-              _ProfileTile(
-                icon: Icons.info_outline,
-                title: LocaleKeys.about_stockflow.tr(),
-                onTap: () {
-                  showAboutDialog(
-                    context: context,
-                    applicationName: 'Products Management',
-                    applicationVersion: '1.0.0',
-                    applicationLegalese: '© 2024 Products Management',
-                  );
-                },
-              ),
+              // const SizedBox(height: 8),
+              // _ProfileTile(
+              //   icon: Icons.info_outline,
+              //   title: LocaleKeys.about_stockflow.tr(),
+              //   onTap: () {
+              //     showAboutDialog(
+              //       context: context,
+              //       applicationName: 'Products Management',
+              //       applicationVersion: '1.0.0',
+              //       applicationLegalese: '© 2024 Products Management',
+              //     );
+              //   },
+              // ),
               _ProfileTile(
                 icon: Icons.logout,
                 title: LocaleKeys.sign_out.tr(),
@@ -114,8 +113,8 @@ class _ProfileView extends StatelessWidget {
                 ),
               ),
               ListTile(
-                leading: const Text('🇺🇸',
-                    style: TextStyle(fontSize: 24)),
+                // leading: const Text('🇺🇸', style: TextStyle(fontSize: 24)),
+                leading: const SizedBox(width: 5),
                 title: const Text('English'),
                 onTap: () {
                   ctx.setLocale(const Locale('en'));
@@ -123,8 +122,9 @@ class _ProfileView extends StatelessWidget {
                 },
               ),
               ListTile(
-                leading: const Text('🇸🇦',
-                    style: TextStyle(fontSize: 24)),
+                // leading: const Text('🇸🇦', style: TextStyle(fontSize: 24)),
+                leading: const SizedBox(width: 5),
+
                 title: const Text('العربية'),
                 onTap: () {
                   ctx.setLocale(const Locale('ar'));

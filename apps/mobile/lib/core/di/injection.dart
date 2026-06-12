@@ -114,7 +114,7 @@ Future<void> configureDependencies() async {
   );
 
   // ── Dashboard ────────────────────────────────────────────
-  sl.registerFactory<DashboardCubit>(
+  sl.registerLazySingleton<DashboardCubit>(
     () => DashboardCubit(categoryRepository: sl(), productRepository: sl()),
   );
 

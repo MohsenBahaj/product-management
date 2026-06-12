@@ -35,33 +35,34 @@ class _ProductDetailsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocConsumer<ProductDetailCubit, ProductDetailState>(
-        listener: (context, state) {
-          if (state is ProductDetailOperationSuccess) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(LocaleKeys.product_updated.tr())),
-            );
-          } else if (state is ProductDetailDeleted) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(LocaleKeys.product_deleted.tr())),
-            );
-            context.pop();
-          } else if (state is ProductDetailError) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(state.message),
-                backgroundColor: Theme.of(context).colorScheme.error,
-              ),
-            );
-          }
-        },
-        builder: (context, state) {
-          return switch (state) {
-            ProductDetailInitial() || ProductDetailLoading() => Scaffold(
+      body: SafeArea(
+        child: BlocConsumer<ProductDetailCubit, ProductDetailState>(
+          listener: (context, state) {
+            if (state is ProductDetailOperationSuccess) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(LocaleKeys.product_updated.tr())),
+              );
+            } else if (state is ProductDetailDeleted) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(LocaleKeys.product_deleted.tr())),
+              );
+              context.pop();
+            } else if (state is ProductDetailError) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(state.message),
+                  backgroundColor: Theme.of(context).colorScheme.error,
+                ),
+              );
+            }
+          },
+          builder: (context, state) {
+            return switch (state) {
+              ProductDetailInitial() || ProductDetailLoading() => Scaffold(
                 appBar: AppBar(),
                 body: const AppLoading(),
               ),
-            ProductDetailError(:final message) => Scaffold(
+              ProductDetailError(:final message) => Scaffold(
                 appBar: AppBar(),
                 body: AppErrorWidget(
                   message: message,
@@ -69,12 +70,17 @@ class _ProductDetailsView extends StatelessWidget {
                       context.read<ProductDetailCubit>().loadProduct(productId),
                 ),
               ),
-            ProductDetailDeleted() => Scaffold(appBar: AppBar(), body: const AppLoading()),
-            ProductDetailLoaded(:final product) ||
-            ProductDetailOperationSuccess(:final product) =>
-              _ProductDetailBody(product: product),
-          };
-        },
+              ProductDetailDeleted() => Scaffold(
+                appBar: AppBar(),
+                body: const AppLoading(),
+              ),
+              ProductDetailLoaded(:final product) ||
+              ProductDetailOperationSuccess(
+                :final product,
+              ) => _ProductDetailBody(product: product),
+            };
+          },
+        ),
       ),
     );
   }
@@ -83,6 +89,15 @@ class _ProductDetailsView extends StatelessWidget {
 class _ProductDetailBody extends StatelessWidget {
   const _ProductDetailBody({required this.product});
   final ProductModel product;
+
+  Future<void> _openEdit(BuildContext context) async {
+    final result = await context.push<bool>(
+      RouteNames.editProductPath(product.id),
+    );
+    if (result == true && context.mounted) {
+      context.read<ProductDetailCubit>().loadProduct(product.id);
+    }
+  }
 
   Future<void> _confirmDelete(BuildContext context) async {
     final confirmed = await showDialog<bool>(
@@ -123,30 +138,32 @@ class _ProductDetailBody extends StatelessWidget {
         SliverAppBar(
           expandedHeight: 280,
           pinned: true,
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.edit_outlined),
-              onPressed: () =>
-                  context.push(RouteNames.editProductPath(product.id)),
-            ),
-            IconButton(
-              icon: Icon(Icons.delete_outline, color: scheme.error),
-              onPressed: () => _confirmDelete(context),
-            ),
-          ],
+          // actions: [
+          //   IconButton(
+          //     icon: const Icon(Icons.edit_outlined),
+          //     onPressed: () => _openEdit(context),
+          //   ),
+          //   IconButton(
+          //     icon: Icon(Icons.delete_outline, color: scheme.error),
+          //     onPressed: () => _confirmDelete(context),
+          //   ),
+          // ],
           flexibleSpace: FlexibleSpaceBar(
             background: images.isEmpty
                 ? Container(
                     color: scheme.surfaceContainerHighest,
-                    child: Icon(Icons.image_outlined,
-                        size: 64, color: scheme.onSurfaceVariant),
+                    child: Icon(
+                      Icons.image_outlined,
+                      size: 64,
+                      color: scheme.onSurfaceVariant,
+                    ),
                   )
                 : images.length == 1
-                    ? AppNetworkImage(url: images.first)
-                    : PageView.builder(
-                        itemCount: images.length,
-                        itemBuilder: (_, i) => AppNetworkImage(url: images[i]),
-                      ),
+                ? AppNetworkImage(url: images.first)
+                : PageView.builder(
+                    itemCount: images.length,
+                    itemBuilder: (_, i) => AppNetworkImage(url: images[i]),
+                  ),
           ),
         ),
         SliverToBoxAdapter(
@@ -161,24 +178,32 @@ class _ProductDetailBody extends StatelessWidget {
                     Expanded(
                       child: Text(
                         product.name,
-                        style: AppTextStyles.headlineLgMobile
-                            .copyWith(color: scheme.onSurface),
+                        style: AppTextStyles.headlineLgMobile.copyWith(
+                          color: scheme.onSurface,
+                        ),
                       ),
                     ),
                     const SizedBox(width: 12),
                     if (product.isFeatured)
                       Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 4),
+                          horizontal: 8,
+                          vertical: 4,
+                        ),
                         decoration: BoxDecoration(
-                          color: const Color(0xFFF39C12).withValues(alpha: 0.15),
+                          color: const Color(
+                            0xFFF39C12,
+                          ).withValues(alpha: 0.15),
                           borderRadius: BorderRadius.circular(6),
                         ),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            const Icon(Icons.star,
-                                color: Color(0xFFF39C12), size: 14),
+                            const Icon(
+                              Icons.star,
+                              color: Color(0xFFF39C12),
+                              size: 14,
+                            ),
                             const SizedBox(width: 4),
                             Text(
                               LocaleKeys.featured_badge.tr(),
@@ -207,8 +232,7 @@ class _ProductDetailBody extends StatelessWidget {
                     const Spacer(),
                     _InfoChip(
                       icon: Icons.inventory_outlined,
-                      label:
-                          '${product.quantity} ${LocaleKeys.in_stock.tr()}',
+                      label: '${product.quantity} ${LocaleKeys.in_stock.tr()}',
                     ),
                   ],
                 ),
@@ -226,8 +250,9 @@ class _ProductDetailBody extends StatelessWidget {
                     product.description!.isNotEmpty) ...[
                   Text(
                     LocaleKeys.description.tr(),
-                    style:
-                        AppTextStyles.titleMd.copyWith(color: scheme.onSurface),
+                    style: AppTextStyles.titleMd.copyWith(
+                      color: scheme.onSurface,
+                    ),
                   ),
                   const SizedBox(height: 8),
                   Text(
@@ -244,8 +269,7 @@ class _ProductDetailBody extends StatelessWidget {
                   child: FilledButton.icon(
                     icon: const Icon(Icons.edit_outlined),
                     label: Text(LocaleKeys.edit_product.tr()),
-                    onPressed: () =>
-                        context.push(RouteNames.editProductPath(product.id)),
+                    onPressed: () => _openEdit(context),
                   ),
                 ),
                 const SizedBox(height: 12),

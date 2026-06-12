@@ -21,13 +21,24 @@ import '../cubits/dashboard_cubit.dart';
 import '../states/dashboard_state.dart';
 import '../widgets/dashboard_stat_card.dart';
 
-class DashboardScreen extends StatelessWidget {
+class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
 
   @override
+  State<DashboardScreen> createState() => _DashboardScreenState();
+}
+
+class _DashboardScreenState extends State<DashboardScreen> {
+  @override
+  void initState() {
+    super.initState();
+    sl<DashboardCubit>().load();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => sl<DashboardCubit>()..load(),
+    return BlocProvider.value(
+      value: sl<DashboardCubit>(),
       child: const _DashboardView(),
     );
   }
@@ -79,36 +90,30 @@ class _DashboardContent extends StatelessWidget {
       child: CustomScrollView(
         slivers: [
           SliverAppBar(
-            expandedHeight: 120,
             pinned: true,
-            backgroundColor: Colors.transparent,
-            flexibleSpace: FlexibleSpaceBar(
-              titlePadding: const EdgeInsets.fromLTRB(20, 0, 20, 16),
-              title: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    '${_greeting()},',
-                    style: AppTextStyles.bodySm.copyWith(color: Colors.black87),
+            toolbarHeight: 76,
+            scrolledUnderElevation: 1,
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            titleSpacing: 20,
+            automaticallyImplyLeading: false,
+            title: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  '${_greeting()},',
+                  style: AppTextStyles.bodySm.copyWith(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
                   ),
-                  Text(
-                    firstName,
-                    style: AppTextStyles.headlineLgMobile.copyWith(
-                      color: AppColors.primary,
-                    ),
+                ),
+                Text(
+                  firstName,
+                  style: AppTextStyles.headlineLgMobile.copyWith(
+                    color: AppColors.primary,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-            // actions: [
-            //   IconButton(
-            //     icon: const Icon(Icons.notifications_outlined,
-            //         color: Colors.white),
-            //     onPressed: () {},
-            //   ),
-            //   const SizedBox(width: 4),
-            // ],
           ),
           SliverToBoxAdapter(
             child: Padding(
@@ -151,7 +156,7 @@ class _StatsGrid extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       crossAxisSpacing: 12,
       mainAxisSpacing: 12,
-      childAspectRatio: 1.1,
+      childAspectRatio: 1.5,
       children: [
         DashboardStatCard(
           label: LocaleKeys.total_products.tr(),

@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../../core/di/injection.dart';
+import '../../features/dashboard/presentation/cubits/dashboard_cubit.dart';
 import '../../generated/locale_keys.g.dart';
 
 class MainShell extends StatelessWidget {
@@ -18,6 +20,9 @@ class MainShell extends StatelessWidget {
       bottomNavigationBar: NavigationBar(
         selectedIndex: navigationShell.currentIndex,
         onDestinationSelected: (index) {
+          if (index == 0 && navigationShell.currentIndex != 0) {
+            sl<DashboardCubit>().load();
+          }
           navigationShell.goBranch(
             index,
             initialLocation: index == navigationShell.currentIndex,

@@ -38,7 +38,7 @@ class DashboardStatCard extends StatelessWidget {
         children: [
           Container(
             width: 35,
-            height: 35,
+            height: 25,
             decoration: BoxDecoration(
               // color: color.withValues(alpha: 0.12),
               borderRadius: BorderRadius.circular(9),
