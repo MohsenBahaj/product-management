@@ -89,6 +89,10 @@ The project was driven by a deliberate engineering mindset: first understand the
 |:-------:|
 | ![Profile](screenshots/mobile/profile.jpeg) |
 
+| Dark Mode — Dashboard | Dark Mode — Products |
+|:---------------------:|:--------------------:|
+| ![Dark Dashboard](screenshots/mobile/dashbaord_dark_mode.jpeg) | ![Dark Products](screenshots/mobile/products_dark_mode.jpeg) |
+
 ---
 
 ### Web Dashboard

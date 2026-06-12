@@ -91,6 +91,10 @@ StockFlow نظام إدارة منتجات متكامل صُمِّم وبُني 
 |:-------:|
 | ![Profile](screenshots/mobile/profile.jpeg) |
 
+| الوضع الداكن — الرئيسية | الوضع الداكن — المنتجات |
+|:----------------------:|:----------------------:|
+| ![Dark Dashboard](screenshots/mobile/dashbaord_dark_mode.jpeg) | ![Dark Products](screenshots/mobile/products_dark_mode.jpeg) |
+
 ---
 
 ### لوحة تحكم الويب
