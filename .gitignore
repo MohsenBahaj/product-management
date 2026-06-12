@@ -71,5 +71,5 @@ logs/
 *.log
 
 # ----- Screenshots (populated manually) -----
-screenshots/*
+# screenshots/*
 !screenshots/.gitkeep
