@@ -23,7 +23,18 @@
     "noAccount": "Don't have an account?",
     "hasAccount": "Already have an account?",
     "createOne": "Create one",
-    "signInLink": "Sign in"
+    "signInLink": "Sign in",
+    "or": "or",
+    "panelDesc": "Streamline your inventory, track products effortlessly, and manage categories with precision.",
+    "feature1": "Full product lifecycle management",
+    "feature2": "Smart category organization",
+    "feature3": "Instant search with history",
+    "feature4": "Arabic & English support",
+    "emailPlaceholder": "you@company.com",
+    "passwordPlaceholder": "••••••••",
+    "namePlaceholder": "John Smith",
+    "passwordMinPlaceholder": "Min 6 characters",
+    "repeatPasswordPlaceholder": "Repeat password"
   },
   "dashboard": {
     "title": "Dashboard",

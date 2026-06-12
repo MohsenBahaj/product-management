@@ -23,7 +23,18 @@
     "noAccount": "ليس لديك حساب؟",
     "hasAccount": "لديك حساب بالفعل؟",
     "createOne": "أنشئ حساباً",
-    "signInLink": "تسجيل الدخول"
+    "signInLink": "تسجيل الدخول",
+    "or": "أو",
+    "panelDesc": "نظّم مخزونك، تتبع المنتجات بسهولة، وأدر الأصناف بدقة.",
+    "feature1": "إدارة دورة حياة المنتج بالكامل",
+    "feature2": "تنظيم ذكي للأصناف",
+    "feature3": "بحث فوري مع سجل البحث",
+    "feature4": "دعم العربية والإنجليزية",
+    "emailPlaceholder": "you@example.com",
+    "passwordPlaceholder": "••••••••",
+    "namePlaceholder": "محمد أحمد",
+    "passwordMinPlaceholder": "6 أحرف على الأقل",
+    "repeatPasswordPlaceholder": "كرر كلمة المرور"
   },
   "dashboard": {
     "title": "لوحة التحكم",

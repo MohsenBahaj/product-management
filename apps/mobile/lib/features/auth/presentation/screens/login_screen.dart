@@ -45,8 +45,9 @@ class _LoginScreenState extends State<LoginScreen> {
           if (state is AuthError) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                  content: Text(state.message),
-                  backgroundColor: scheme.error),
+                content: Text(state.message),
+                backgroundColor: scheme.error,
+              ),
             );
           }
         },
@@ -77,15 +78,17 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(height: 20),
                   Text(
                     LocaleKeys.welcome_back.tr(),
-                    style: AppTextStyles.headlineLg
-                        .copyWith(color: scheme.onSurface),
+                    style: AppTextStyles.headlineLg.copyWith(
+                      color: scheme.onSurface,
+                    ),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 6),
                   Text(
                     LocaleKeys.sign_in_to_account.tr(),
-                    style: AppTextStyles.bodySm
-                        .copyWith(color: scheme.onSurfaceVariant),
+                    style: AppTextStyles.bodySm.copyWith(
+                      color: scheme.onSurfaceVariant,
+                    ),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 40),
@@ -143,8 +146,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: [
                       Text(
                         LocaleKeys.dont_have_account.tr(),
-                        style: AppTextStyles.bodySm
-                            .copyWith(color: scheme.onSurfaceVariant),
+                        style: AppTextStyles.bodySm.copyWith(
+                          color: scheme.onSurfaceVariant,
+                        ),
                       ),
                       GestureDetector(
                         onTap: () => context.push(RouteNames.register),
@@ -158,20 +162,20 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 24),
-                  Container(
-                    padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      color: scheme.surfaceContainerHighest,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Text(
-                      LocaleKeys.demo_hint.tr(),
-                      style: AppTextStyles.bodySm
-                          .copyWith(color: scheme.onSurfaceVariant),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
+                  // const SizedBox(height: 24),
+                  // Container(
+                  //   padding: const EdgeInsets.all(12),
+                  //   decoration: BoxDecoration(
+                  //     color: scheme.surfaceContainerHighest,
+                  //     borderRadius: BorderRadius.circular(8),
+                  //   ),
+                  //   child: Text(
+                  //     LocaleKeys.demo_hint.tr(),
+                  //     style: AppTextStyles.bodySm
+                  //         .copyWith(color: scheme.onSurfaceVariant),
+                  //     textAlign: TextAlign.center,
+                  //   ),
+                  // ),
                   const SizedBox(height: 24),
                 ],
               ),

@@ -57,7 +57,7 @@ export default function LoginPage() {
           <TextField
             fullWidth
             type="email"
-            placeholder="you@company.com"
+            placeholder={t('auth.emailPlaceholder')}
             {...register('email')}
             error={!!errors.email}
             helperText={errors.email && t(`validation.${errors.email.message}`)}
@@ -76,7 +76,7 @@ export default function LoginPage() {
           <TextField
             fullWidth
             type={showPassword ? 'text' : 'password'}
-            placeholder="••••••••"
+            placeholder={t('auth.passwordPlaceholder')}
             {...register('password')}
             error={!!errors.password}
             helperText={errors.password && t(`validation.${errors.password.message}`)}
@@ -107,7 +107,7 @@ export default function LoginPage() {
       </Box>
 
       <Divider sx={{ my: 3 }}>
-        <Typography variant="caption" color="text.secondary" sx={{ px: 1 }}>or</Typography>
+        <Typography variant="caption" color="text.secondary" sx={{ px: 1 }}>{t('auth.or')}</Typography>
       </Divider>
 
       <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'center' }}>

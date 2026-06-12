@@ -59,7 +59,7 @@ export default function RegisterPage() {
         <Box>
           <Typography variant="body2" sx={{ fontWeight: 600, mb: 0.75 }}>{t('auth.name')}</Typography>
           <TextField
-            fullWidth placeholder="Alice Johnson"
+            fullWidth placeholder={t('auth.namePlaceholder')}
             {...register('name')}
             error={!!errors.name}
             helperText={errors.name && t(`validation.${errors.name.message}`, { count: 2 })}
@@ -68,7 +68,7 @@ export default function RegisterPage() {
         <Box>
           <Typography variant="body2" sx={{ fontWeight: 600, mb: 0.75 }}>{t('auth.email')}</Typography>
           <TextField
-            fullWidth type="email" placeholder="you@company.com"
+            fullWidth type="email" placeholder={t('auth.emailPlaceholder')}
             {...register('email')}
             error={!!errors.email}
             helperText={errors.email && t(`validation.${errors.email.message}`)}
@@ -77,7 +77,7 @@ export default function RegisterPage() {
         <Box>
           <Typography variant="body2" sx={{ fontWeight: 600, mb: 0.75 }}>{t('auth.password')}</Typography>
           <TextField
-            fullWidth type={showPass ? 'text' : 'password'} placeholder="Min 6 characters"
+            fullWidth type={showPass ? 'text' : 'password'} placeholder={t('auth.passwordMinPlaceholder')}
             {...register('password')}
             error={!!errors.password}
             helperText={errors.password && t(`validation.${errors.password.message}`, { count: 6 })}
@@ -97,7 +97,7 @@ export default function RegisterPage() {
         <Box>
           <Typography variant="body2" sx={{ fontWeight: 600, mb: 0.75 }}>{t('auth.confirmPassword')}</Typography>
           <TextField
-            fullWidth type="password" placeholder="Repeat password"
+            fullWidth type="password" placeholder={t('auth.repeatPasswordPlaceholder')}
             {...register('confirmPassword')}
             error={!!errors.confirmPassword}
             helperText={errors.confirmPassword && t(`validation.${errors.confirmPassword.message}`)}

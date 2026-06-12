@@ -42,21 +42,21 @@ export default function AuthLayout() {
             {t('app.tagline')}
           </Typography>
           <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.6)', lineHeight: 1.7 }}>
-            Streamline your inventory, track products effortlessly, and manage categories with precision.
+            {t('auth.panelDesc')}
           </Typography>
 
           <Box sx={{ mt: 5, display: 'flex', flexDirection: 'column', gap: 2 }}>
-            {[
-              { icon: '📦', text: 'Full product lifecycle management' },
-              { icon: '🏷️', text: 'Smart category organization' },
-              { icon: '🔍', text: 'Instant search with history' },
-              { icon: '🌐', text: 'Arabic & English support' },
-            ].map(({ icon, text }) => (
-              <Box key={text} sx={{ display: 'flex', alignItems: 'center', gap: 1.5,
+            {([
+              { icon: '📦', key: 'auth.feature1' },
+              { icon: '🏷️', key: 'auth.feature2' },
+              { icon: '🔍', key: 'auth.feature3' },
+              { icon: '🌐', key: 'auth.feature4' },
+            ] as const).map(({ icon, key }) => (
+              <Box key={key} sx={{ display: 'flex', alignItems: 'center', gap: 1.5,
                 bgcolor: 'rgba(255,255,255,0.07)', borderRadius: 2, px: 2, py: 1.25 }}>
                 <Typography sx={{ fontSize: '1.2rem' }}>{icon}</Typography>
                 <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.8)', fontWeight: 500 }}>
-                  {text}
+                  {t(key)}
                 </Typography>
               </Box>
             ))}
