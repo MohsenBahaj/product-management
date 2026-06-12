@@ -145,7 +145,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       if (v == null || v.isEmpty) {
                         return LocaleKeys.password_required.tr();
                       }
-                      if (v.length < 6) {
+                      if (v.length < 8) {
                         return LocaleKeys.password_min_length.tr();
                       }
                       return null;

@@ -18,7 +18,7 @@ import { getApiErrorMessage } from '@/core/api/client';
 const schema = z.object({
   name: z.string().min(2, 'minLength').max(100, 'maxLength'),
   email: z.string().min(1, 'required').email('invalidEmail'),
-  password: z.string().min(6, 'minLength'),
+  password: z.string().min(8, 'minLength'),
   confirmPassword: z.string().min(1, 'required'),
 }).refine((d) => d.password === d.confirmPassword, {
   message: 'passwordMatch', path: ['confirmPassword'],
@@ -80,7 +80,7 @@ export default function RegisterPage() {
             fullWidth type={showPass ? 'text' : 'password'} placeholder={t('auth.passwordMinPlaceholder')}
             {...register('password')}
             error={!!errors.password}
-            helperText={errors.password && t(`validation.${errors.password.message}`, { count: 6 })}
+            helperText={errors.password && t(`validation.${errors.password.message}`, { count: 8 })}
             slotProps={{
               input: {
                 endAdornment: (

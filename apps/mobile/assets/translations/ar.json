@@ -49,7 +49,7 @@
   "email_required": "البريد الإلكتروني مطلوب",
   "enter_valid_email": "أدخل بريداً إلكترونياً صحيحاً",
   "password_required": "كلمة المرور مطلوبة",
-  "password_min_length": "يجب أن تتضمن كلمة المرور 6 أحرف على الأقل",
+  "password_min_length": "يجب أن تتضمن كلمة المرور 8 أحرف على الأقل",
   "field_required": "مطلوب",
   "invalid_value": "غير صحيح",
 

@@ -33,7 +33,7 @@
     "emailPlaceholder": "you@example.com",
     "passwordPlaceholder": "••••••••",
     "namePlaceholder": "محمد أحمد",
-    "passwordMinPlaceholder": "6 أحرف على الأقل",
+    "passwordMinPlaceholder": "8 أحرف على الأقل",
     "repeatPasswordPlaceholder": "كرر كلمة المرور"
   },
   "dashboard": {

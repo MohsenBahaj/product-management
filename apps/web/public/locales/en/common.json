@@ -33,7 +33,7 @@
     "emailPlaceholder": "you@company.com",
     "passwordPlaceholder": "••••••••",
     "namePlaceholder": "John Smith",
-    "passwordMinPlaceholder": "Min 6 characters",
+    "passwordMinPlaceholder": "Min 8 characters",
     "repeatPasswordPlaceholder": "Repeat password"
   },
   "dashboard": {
