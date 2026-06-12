@@ -115,6 +115,10 @@
   "sign_out_action": "Sign Out",
   "language": "Language",
   "select_language": "Select Language",
+  "appearance": "Appearance",
+  "light_mode": "Light",
+  "dark_mode": "Dark",
+  "system_default": "System default",
 
   "tap_to_change_photo": "Tap the camera icon to change photo",
   "email_cannot_be_changed": "Email cannot be changed",

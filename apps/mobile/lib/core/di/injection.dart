@@ -7,6 +7,7 @@ import '../network/interceptors/logging_interceptor.dart';
 import '../router/app_router.dart';
 import '../router/auth_notifier.dart';
 import '../storage/secure_storage.dart';
+import '../theme/theme_cubit.dart';
 import '../../features/auth/data/datasources/auth_remote_data_source.dart';
 import '../../features/auth/data/repositories/auth_repository_impl.dart';
 import '../../features/auth/domain/repositories/auth_repository.dart';
@@ -38,6 +39,9 @@ Future<void> configureDependencies() async {
     () => const FlutterSecureStorage(),
   );
   sl.registerLazySingleton<SecureStorage>(() => SecureStorage(sl()));
+
+  // ── Theme ────────────────────────────────────────────────
+  sl.registerLazySingleton<ThemeCubit>(() => ThemeCubit(sl()));
 
   // ── Network ───────────────────────────────────────────────
   sl.registerLazySingleton(() => AuthInterceptor(sl()));

@@ -16,7 +16,7 @@
 
 ---
 
-**[Live Web App](https://products-management-tan.vercel.app)** &nbsp;·&nbsp;
+**[Live Web App](https://products-management-k8773vz6i-mohsenbahajs-projects.vercel.app)** &nbsp;·&nbsp;
 **[API Docs — Swagger](https://product-management-production-0052.up.railway.app/api-docs/#)** &nbsp;·&nbsp;
 **[UI/UX Design — Figma](https://www.figma.com/design/jFjHVsFIkInzs5bVlQQoaj/product-management-mobile-app?node-id=0-1&p=f)**
 
@@ -535,7 +535,7 @@ flutter run
 
 | Layer | Platform | URL |
 |---|---|---|
-| Web App | Vercel | https://products-management-tan.vercel.app |
+| Web App | Vercel | https://products-management-k8773vz6i-mohsenbahajs-projects.vercel.app |
 | REST API | Railway | https://product-management-production-0052.up.railway.app |
 | API Docs | Railway (Swagger) | https://product-management-production-0052.up.railway.app/api-docs/# |
 | Database | Railway PostgreSQL | Provisioned automatically |

@@ -16,7 +16,7 @@
 
 ---
 
-**[تطبيق الويب المباشر](https://products-management-tan.vercel.app)** &nbsp;·&nbsp;
+**[تطبيق الويب المباشر](https://products-management-k8773vz6i-mohsenbahajs-projects.vercel.app)** &nbsp;·&nbsp;
 **[توثيق الـ API — Swagger](https://product-management-production-0052.up.railway.app/api-docs/#)** &nbsp;·&nbsp;
 **[تصميم الواجهات — Figma](https://www.figma.com/design/jFjHVsFIkInzs5bVlQQoaj/product-management-mobile-app?node-id=0-1&p=f)**
 
@@ -537,7 +537,7 @@ flutter run
 
 | الطبقة | المنصة | الرابط |
 |---|---|---|
-| تطبيق الويب | Vercel | https://products-management-tan.vercel.app |
+| تطبيق الويب | Vercel | https://products-management-k8773vz6i-mohsenbahajs-projects.vercel.app |
 | REST API | Railway | https://product-management-production-0052.up.railway.app |
 | توثيق الـ API | Railway (Swagger) | https://product-management-production-0052.up.railway.app/api-docs/# |
 | قاعدة البيانات | Railway PostgreSQL | يُنشأ تلقائياً |

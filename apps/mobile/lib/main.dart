@@ -5,6 +5,7 @@ import 'core/di/injection.dart';
 import 'core/router/app_router.dart';
 import 'core/router/auth_notifier.dart';
 import 'core/theme/app_theme.dart';
+import 'core/theme/theme_cubit.dart';
 import 'features/auth/presentation/cubits/auth_cubit.dart';
 import 'features/auth/presentation/states/auth_state.dart';
 
@@ -29,8 +30,15 @@ class ProductManagementApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<AuthCubit>(
-      create: (_) => sl<AuthCubit>()..checkAuthStatus(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<AuthCubit>(
+          create: (_) => sl<AuthCubit>()..checkAuthStatus(),
+        ),
+        BlocProvider<ThemeCubit>(
+          create: (_) => sl<ThemeCubit>()..init(),
+        ),
+      ],
       child: const _AppRoot(),
     );
   }
@@ -49,16 +57,20 @@ class _AppRoot extends StatelessWidget {
           sl<AuthNotifier>().setAuthenticated(false);
         }
       },
-      child: MaterialApp.router(
-        title: 'Products Management',
-        theme: AppTheme.light,
-        darkTheme: AppTheme.dark,
-        themeMode: ThemeMode.system,
-        routerConfig: sl<AppRouter>().router,
-        debugShowCheckedModeBanner: false,
-        localizationsDelegates: context.localizationDelegates,
-        supportedLocales: context.supportedLocales,
-        locale: context.locale,
+      child: BlocBuilder<ThemeCubit, ThemeMode>(
+        builder: (context, themeMode) {
+          return MaterialApp.router(
+            title: 'Products Management',
+            theme: AppTheme.light,
+            darkTheme: AppTheme.dark,
+            themeMode: themeMode,
+            routerConfig: sl<AppRouter>().router,
+            debugShowCheckedModeBanner: false,
+            localizationsDelegates: context.localizationDelegates,
+            supportedLocales: context.supportedLocales,
+            locale: context.locale,
+          );
+        },
       ),
     );
   }

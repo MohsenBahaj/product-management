@@ -2,8 +2,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../core/di/injection.dart';
 import '../../../../core/router/route_names.dart';
 import '../../../../core/theme/app_text_styles.dart';
+import '../../../../core/theme/theme_cubit.dart';
 import '../../../../generated/locale_keys.g.dart';
 import '../../../auth/presentation/cubits/auth_cubit.dart';
 import '../../../auth/presentation/states/auth_state.dart';
@@ -56,6 +58,11 @@ class _ProfileView extends StatelessWidget {
                 title: LocaleKeys.language.tr(),
                 onTap: () => _showLanguagePicker(context),
               ),
+              _ProfileTile(
+                icon: Icons.brightness_6_outlined,
+                title: LocaleKeys.appearance.tr(),
+                onTap: () => _showThemePicker(context),
+              ),
               const Divider(height: 1),
               // const SizedBox(height: 8),
               // _ProfileTile(
@@ -82,6 +89,91 @@ class _ProfileView extends StatelessWidget {
           );
         },
       ),
+    );
+  }
+
+  void _showThemePicker(BuildContext context) {
+    showModalBottomSheet<void>(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
+      builder: (ctx) {
+        return BlocBuilder<ThemeCubit, ThemeMode>(
+          bloc: sl<ThemeCubit>(),
+          builder: (ctx, current) {
+            return SafeArea(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const SizedBox(height: 8),
+                  Container(
+                    width: 40,
+                    height: 4,
+                    decoration: BoxDecoration(
+                      color: Theme.of(ctx).colorScheme.outlineVariant,
+                      borderRadius: BorderRadius.circular(2),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+                    child: Text(
+                      LocaleKeys.appearance.tr(),
+                      style: AppTextStyles.titleMd,
+                    ),
+                  ),
+                  RadioListTile<ThemeMode>(
+                    value: ThemeMode.light,
+                    groupValue: current,
+                    title: Row(
+                      children: [
+                        const Icon(Icons.light_mode_outlined, size: 20),
+                        const SizedBox(width: 12),
+                        Text(LocaleKeys.light_mode.tr()),
+                      ],
+                    ),
+                    onChanged: (mode) {
+                      sl<ThemeCubit>().setTheme(mode!);
+                      Navigator.of(ctx).pop();
+                    },
+                  ),
+                  RadioListTile<ThemeMode>(
+                    value: ThemeMode.dark,
+                    groupValue: current,
+                    title: Row(
+                      children: [
+                        const Icon(Icons.dark_mode_outlined, size: 20),
+                        const SizedBox(width: 12),
+                        Text(LocaleKeys.dark_mode.tr()),
+                      ],
+                    ),
+                    onChanged: (mode) {
+                      sl<ThemeCubit>().setTheme(mode!);
+                      Navigator.of(ctx).pop();
+                    },
+                  ),
+                  RadioListTile<ThemeMode>(
+                    value: ThemeMode.system,
+                    groupValue: current,
+                    title: Row(
+                      children: [
+                        const Icon(Icons.brightness_auto_outlined, size: 20),
+                        const SizedBox(width: 12),
+                        Text(LocaleKeys.system_default.tr()),
+                      ],
+                    ),
+                    onChanged: (mode) {
+                      sl<ThemeCubit>().setTheme(mode!);
+                      Navigator.of(ctx).pop();
+                    },
+                  ),
+                  const SizedBox(height: 8),
+                ],
+              ),
+            );
+          },
+        );
+      },
     );
   }
 

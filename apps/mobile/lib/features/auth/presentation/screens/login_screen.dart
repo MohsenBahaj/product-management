@@ -22,12 +22,14 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailCtrl = TextEditingController();
   final _passwordCtrl = TextEditingController();
+  final _passwordFocus = FocusNode();
   bool _obscurePassword = true;
 
   @override
   void dispose() {
     _emailCtrl.dispose();
     _passwordCtrl.dispose();
+    _passwordFocus.dispose();
     super.dispose();
   }
 
@@ -96,7 +98,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     controller: _emailCtrl,
                     label: LocaleKeys.email_address.tr(),
                     keyboardType: TextInputType.emailAddress,
+                    textInputAction: TextInputAction.next,
                     prefixIcon: const Icon(Icons.email_outlined),
+                    onSubmitted: (_) => _passwordFocus.requestFocus(),
                     validator: (v) {
                       if (v == null || v.trim().isEmpty) {
                         return LocaleKeys.email_required.tr();
@@ -110,8 +114,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(height: 16),
                   AppTextField(
                     controller: _passwordCtrl,
+                    focusNode: _passwordFocus,
                     label: LocaleKeys.password.tr(),
                     obscureText: _obscurePassword,
+                    textInputAction: TextInputAction.done,
                     prefixIcon: const Icon(Icons.lock_outline),
                     suffixIcon: IconButton(
                       icon: Icon(
@@ -122,6 +128,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: () =>
                           setState(() => _obscurePassword = !_obscurePassword),
                     ),
+                    onSubmitted: (_) => _submit(),
                     validator: (v) {
                       if (v == null || v.isEmpty) {
                         return LocaleKeys.password_required.tr();

@@ -22,6 +22,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _nameCtrl = TextEditingController();
   final _emailCtrl = TextEditingController();
   final _passwordCtrl = TextEditingController();
+  final _emailFocus = FocusNode();
+  final _passwordFocus = FocusNode();
   bool _obscurePassword = true;
 
   @override
@@ -29,6 +31,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     _nameCtrl.dispose();
     _emailCtrl.dispose();
     _passwordCtrl.dispose();
+    _emailFocus.dispose();
+    _passwordFocus.dispose();
     super.dispose();
   }
 
@@ -102,7 +106,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     controller: _nameCtrl,
                     label: LocaleKeys.full_name.tr(),
                     keyboardType: TextInputType.name,
+                    textInputAction: TextInputAction.next,
                     prefixIcon: const Icon(Icons.person_outline),
+                    onSubmitted: (_) => _emailFocus.requestFocus(),
                     validator: (v) {
                       if (v == null || v.trim().isEmpty) {
                         return LocaleKeys.name_required.tr();
@@ -113,9 +119,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   const SizedBox(height: 16),
                   AppTextField(
                     controller: _emailCtrl,
+                    focusNode: _emailFocus,
                     label: LocaleKeys.email_address.tr(),
                     keyboardType: TextInputType.emailAddress,
+                    textInputAction: TextInputAction.next,
                     prefixIcon: const Icon(Icons.email_outlined),
+                    onSubmitted: (_) => _passwordFocus.requestFocus(),
                     validator: (v) {
                       if (v == null || v.trim().isEmpty) {
                         return LocaleKeys.email_required.tr();
@@ -129,8 +138,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   const SizedBox(height: 16),
                   AppTextField(
                     controller: _passwordCtrl,
+                    focusNode: _passwordFocus,
                     label: LocaleKeys.password.tr(),
                     obscureText: _obscurePassword,
+                    textInputAction: TextInputAction.done,
                     prefixIcon: const Icon(Icons.lock_outline),
                     suffixIcon: IconButton(
                       icon: Icon(
@@ -141,6 +152,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       onPressed: () =>
                           setState(() => _obscurePassword = !_obscurePassword),
                     ),
+                    onSubmitted: (_) => _submit(),
                     validator: (v) {
                       if (v == null || v.isEmpty) {
                         return LocaleKeys.password_required.tr();

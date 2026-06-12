@@ -106,6 +106,10 @@ abstract class  LocaleKeys {
   static const sign_out_action = 'sign_out_action';
   static const language = 'language';
   static const select_language = 'select_language';
+  static const appearance = 'appearance';
+  static const light_mode = 'light_mode';
+  static const dark_mode = 'dark_mode';
+  static const system_default = 'system_default';
   static const tap_to_change_photo = 'tap_to_change_photo';
   static const email_cannot_be_changed = 'email_cannot_be_changed';
   static const profile_updated = 'profile_updated';

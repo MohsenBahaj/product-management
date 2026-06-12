@@ -115,6 +115,10 @@
   "sign_out_action": "تسجيل الخروج",
   "language": "اللغة",
   "select_language": "اختر اللغة",
+  "appearance": "المظهر",
+  "light_mode": "فاتح",
+  "dark_mode": "داكن",
+  "system_default": "إعداد النظام",
 
   "tap_to_change_photo": "اضغط على أيقونة الكاميرا لتغيير الصورة",
   "email_cannot_be_changed": "لا يمكن تغيير البريد الإلكتروني",
