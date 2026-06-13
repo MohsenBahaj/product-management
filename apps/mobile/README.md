@@ -8,7 +8,7 @@
 - Product image upload from camera / gallery
 - User profile with avatar upload
 - Search history display and clear
-- Offline-first considerations (cached product list)
+
 
 ## Tech Stack
 
