@@ -1,14 +1,6 @@
 # Mobile App (Flutter)
 
-> **This directory is a placeholder.**
-> Initialize the Flutter application here manually:
->
-> ```bash
-> cd apps
-> flutter create mobile --org com.example.productmanagement --platforms android,ios
-> ```
-
-## Planned Features
+ Features
 
 - Register / Login / Logout
 - Product list with search and category filter
